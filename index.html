@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="d5xEWoXJXtLfOvQvKerUT-l0QTCQa7hK046Pzg3BOdg" />
+  <title>A&MDev Studio – Desenvolvimento de Aplicativos Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #3B9FE8;
+      --blue-dark: #1A7FCC;
+      --blue-light: #E8F4FD;
+      --blue-mid: #C3E0F7;
+      --green: #4ADE80;
+      --green-dark: #22C55E;
+      --green-light: #DCFCE7;
+      --white: #ffffff;
+      --off-white: #F7FAFE;
+      --gray-light: #EFF4FB;
+      --gray-mid: #CBD5E1;
+      --gray-text: #64748B;
+      --dark: #0F172A;
+      --dark-mid: #1E293B;
+      --font-head: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(59,159,232,0.10);
+      --shadow-lg: 0 12px 48px rgba(59,159,232,0.16);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--dark-mid); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(59,159,232,0.10);
+      padding: 0 2rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; color: white; letter-spacing: -1px;
+    }
+    .logo-mark span { color: var(--green); }
+    .nav-brand { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--dark); letter-spacing: -0.5px; }
+    .nav-brand em { font-style: normal; color: var(--blue); }
+    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+    nav ul a { text-decoration: none; color: var(--gray-text); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    nav ul a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue) !important; color: white !important; padding: 8px 20px; border-radius: 50px; font-weight: 600 !important; transition: background 0.2s, transform 0.15s !important; }
+    .nav-cta:hover { background: var(--blue-dark) !important; transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      padding-top: 120px; padding-bottom: 96px;
+      background: linear-gradient(160deg, #EEF6FD 0%, #ffffff 50%, #EDFFF5 100%);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -160px; right: -160px;
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,159,232,0.07) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -120px; left: -120px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%);
+    }
+    .hero-inner { max-width: 760px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue-light); color: var(--blue-dark);
+      font-size: 0.72rem; font-weight: 700; padding: 6px 16px; border-radius: 50px;
+      margin-bottom: 1.5rem; border: 1px solid var(--blue-mid); letter-spacing: 0.7px; text-transform: uppercase;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; background: var(--green-dark); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.4)} }
+    .big-logo {
+      width: 92px; height: 92px; margin: 0 auto 1.75rem;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      border-radius: 26px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-weight: 800; font-size: 2.2rem; color: white; letter-spacing: -2px;
+      box-shadow: 0 20px 48px rgba(59,159,232,0.28); animation: floatLogo 4s ease-in-out infinite;
+    }
+    .big-logo span { color: var(--green); }
+    @keyframes floatLogo { 0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(1.5deg)} }
+    .hero h1 {
+      font-family: var(--font-head); font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800; line-height: 1.12; letter-spacing: -1.5px; color: var(--dark); margin-bottom: 1.25rem;
+    }
+    .hero h1 .blue { color: var(--blue); }
+    .hero h1 .green { color: var(--green-dark); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--gray-text); line-height: 1.75;
+      margin: 0 auto 2.25rem; max-width: 560px;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: white; padding: 14px 30px; border-radius: 50px;
+      font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(59,159,232,0.30); transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59,159,232,0.38); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--blue); padding: 14px 30px; border-radius: 50px;
+      font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      border: 2px solid var(--blue-mid); transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--blue); background: var(--blue-light); transform: translateY(-2px); }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: white; border-top: 1px solid rgba(59,159,232,0.08); border-bottom: 1px solid rgba(59,159,232,0.08); padding: 1.25rem 0;
+    }
+    .trust-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--gray-text); font-weight: 500; }
+
+    /* SECTIONS */
+    section { padding: 80px 0; }
+    .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .section-tag {
+      display: inline-block; background: var(--blue-light); color: var(--blue-dark);
+      font-size: 0.7rem; font-weight: 700; padding: 5px 14px; border-radius: 50px;
+      letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .section-title { font-family: var(--font-head); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: var(--dark); line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+    .section-sub { color: var(--gray-text); font-size: 1rem; line-height: 1.75; max-width: 520px; }
+
+    /* ABOUT */
+    .about-bg { background: var(--off-white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-points { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 2rem; }
+    .about-point { display: flex; gap: 12px; align-items: flex-start; }
+    .ap-icon { width: 38px; height: 38px; min-width: 38px; background: var(--blue-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; }
+    .about-point h5 { font-family: var(--font-head); font-weight: 700; font-size: 0.92rem; color: var(--dark); margin-bottom: 3px; }
+    .about-point p { font-size: 0.84rem; color: var(--gray-text); line-height: 1.65; }
+    .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .acard {
+      background: white; border-radius: var(--radius); padding: 1.5rem;
+      border: 1px solid rgba(59,159,232,0.10); box-shadow: var(--shadow); transition: transform 0.2s;
+    }
+    .acard:hover { transform: translateY(-4px); }
+    .acard.tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+    .acard .icon { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .acard h4 { font-family: var(--font-head); font-weight: 700; font-size: 0.92rem; color: var(--dark); margin-bottom: 4px; }
+    .acard p { font-size: 0.8rem; color: var(--gray-text); line-height: 1.6; }
+    .big-stat { font-family: var(--font-head); font-size: 2.6rem; font-weight: 800; color: var(--blue); line-height: 1; margin-bottom: 4px; }
+    .big-stat span { color: var(--green-dark); }
+
+    /* APPS */
+    .apps-header { text-align: center; margin-bottom: 3rem; }
+    .apps-header .section-sub { margin: 0 auto; }
+    .app-featured {
+      background: white; border: 2px solid var(--blue); border-radius: var(--radius);
+      padding: 2rem 2.5rem; display: grid; grid-template-columns: auto 1fr; gap: 2rem;
+      align-items: center; box-shadow: var(--shadow-lg); margin-bottom: 1.5rem; position: relative;
+      transition: transform 0.2s;
+    }
+    .app-featured:hover { transform: translateY(-4px); }
+    .featured-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--blue); color: white; font-size: 0.65rem; font-weight: 700;
+      padding: 4px 12px; border-radius: 50px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .app-icon-box { width: 80px; height: 80px; border-radius: 18px; overflow: hidden; flex-shrink: 0; }
+    .app-icon-box img { width: 100%; height: 100%; object-fit: cover; }
+    .app-category { font-size: 0.72rem; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .app-featured h3 { font-family: var(--font-head); font-weight: 800; font-size: 1.4rem; color: var(--dark); margin-bottom: 0.5rem; }
+    .app-featured p { font-size: 0.88rem; color: var(--gray-text); line-height: 1.65; margin-bottom: 1rem; }
+    .app-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+    .tag { background: var(--blue-light); color: var(--blue-dark); font-size: 0.7rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; }
+    .tag.g { background: var(--green-light); color: #15803D; }
+    .app-status { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; font-weight: 600; color: var(--green-dark); }
+    .app-status .dot { width: 6px; height: 6px; background: var(--green-dark); border-radius: 50%; animation: pulse 2s infinite; }
+    .app-status.soon { color: var(--gray-text); }
+    .app-status.soon .dot { background: var(--gray-mid); animation: none; }
+    .apps-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .app-card-sm {
+      background: white; border-radius: var(--radius); padding: 1.75rem;
+      border: 1px solid rgba(59,159,232,0.12); box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .app-card-sm:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .app-card-sm .app-icon-sm { width: 52px; height: 52px; border-radius: 14px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+    .app-card-sm h3 { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--dark); margin-bottom: 4px; }
+    .app-card-sm p { font-size: 0.84rem; color: var(--gray-text); line-height: 1.65; margin-bottom: 1rem; }
+
+    /* VALUES */
+    .values-bg { background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 100%); }
+    .values-header { text-align: center; margin-bottom: 3rem; }
+    .values-header .section-title { color: white; }
+    .values-header .section-sub { color: rgba(255,255,255,0.5); margin: 0 auto; }
+    .values-header .section-tag { background: rgba(59,159,232,0.2); color: var(--blue); }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .value-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius); padding: 1.75rem 1.5rem; text-align: center; transition: background 0.2s, transform 0.2s;
+    }
+    .value-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+    .value-card .vi { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .value-card h4 { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; color: white; margin-bottom: 0.5rem; }
+    .value-card p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+    /* PRIVACY */
+    .privacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .privacy-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .privacy-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 1rem 1.25rem; background: var(--off-white);
+      border-radius: var(--radius-sm); border-left: 3px solid var(--blue);
+    }
+    .privacy-item .pi { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .privacy-item h5 { font-family: var(--font-head); font-weight: 700; font-size: 0.9rem; color: var(--dark); margin-bottom: 3px; }
+    .privacy-item p { font-size: 0.82rem; color: var(--gray-text); line-height: 1.6; }
+
+    /* CONTACT CARD */
+    .contact-card {
+      background: white; border-radius: var(--radius); padding: 2rem;
+      border: 1px solid rgba(59,159,232,0.12); box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .contact-item { display: flex; align-items: center; gap: 14px; }
+    .contact-icon {
+      width: 44px; height: 44px; background: var(--blue-light); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .c-label { font-size: 0.7rem; color: var(--gray-text); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .c-value { font-size: 0.92rem; font-weight: 600; color: var(--dark); }
+    .c-value a { color: var(--blue); text-decoration: none; }
+    .c-value a:hover { text-decoration: underline; }
+    .c-divider { height: 1px; background: var(--gray-light); }
+
+    /* CONTACT SECTION */
+    .contact-bg { background: var(--off-white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,0.4); padding: 3rem 0 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 1.5rem; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+    .footer-lm { width: 34px; height: 34px; background: linear-gradient(135deg, var(--blue), var(--blue-dark)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 800; font-size: 0.85rem; color: white; letter-spacing: -1px; }
+    .footer-lm span { color: var(--green); }
+    .footer-brand-name { font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: white; }
+    .footer-brand p { font-size: 0.84rem; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-family: var(--font-head); font-weight: 700; font-size: 0.78rem; color: white; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.6px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul a { text-decoration: none; color: rgba(255,255,255,0.38); font-size: 0.84rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--blue); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom a { color: var(--blue); text-decoration: none; }
+
+    /* FADE UP */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.08s; }
+    .fade-up:nth-child(3) { transition-delay: 0.16s; }
+    .fade-up:nth-child(4) { transition-delay: 0.24s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-grid, .privacy-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .apps-secondary { grid-template-columns: 1fr; }
+      .app-featured { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      nav ul { display: none; }
+    }
+    @media (max-width: 600px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .acard.tall { grid-row: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">Am<span>D</span></div>
+    <span class="nav-brand">A&MDev <em>Studio</em></span>
+  </a>
+  <ul>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#aplicativos">Aplicativos</a></li>
+    <li><a href="#privacidade">Privacidade</a></li>
+    <li><a href="#contato" class="nav-cta">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><div class="dot"></div>Organização de Desenvolvimento Mobile</div>
+    <div class="big-logo">A&M<span>D</span></div>
+    <h1><span class="blue">A&MDev</span> Studio<br/><span class="green">Apps que cuidam</span><br/>de quem você ama</h1>
+    <p class="hero-sub">Desenvolvemos aplicativos móveis focados em saúde, bem-estar e qualidade de vida. Nossa missão é criar soluções simples, acessíveis e confiáveis para o dia a dia das pessoas.</p>
+    <div class="hero-btns">
+      <a href="#aplicativos" class="btn-primary">🚀 Nossos Aplicativos</a>
+      <a href="#contato" class="btn-secondary">Falar conosco →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">Aplicativos verificados</div>
+    <div class="trust-item">Dados protegidos</div>
+    <div class="trust-item">Plataforma Android</div>
+    <div class="trust-item">Desenvolvido no Brasil</div>
+    <div class="trust-item">Gratuito para usar</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-bg" id="sobre">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-tag">Quem somos</div>
+        <h2 class="section-title">Uma organização focada em soluções de saúde mobile</h2>
+        <p class="section-sub">A A&MDev Studio é uma organização brasileira dedicada ao desenvolvimento de aplicativos móveis que simplificam o cuidado com a saúde de pacientes, cuidadores e famílias.</p>
+        <div class="about-points">
+          <div class="about-point fade-up">
+            <div class="ap-icon"></div>
+            <div>
+              <h5>Missão clara</h5>
+              <p>Democratizar o acesso a ferramentas de saúde digital, tornando o cuidado pessoal mais simples e acessível para todos.</p>
+            </div>
+          </div>
+          <div class="about-point fade-up">
+            <div class="ap-icon"></div>
+            <div>
+              <h5>Inovação responsável</h5>
+              <p>Desenvolvemos com foco em usabilidade e segurança, garantindo impacto real na vida dos usuários a cada funcionalidade.</p>
+            </div>
+          </div>
+          <div class="about-point fade-up">
+            <div class="ap-icon"></div>
+            <div>
+              <h5>Compromisso com o usuário</h5>
+              <p>Privacidade, transparência e suporte ativo fazem parte do nosso DNA. Estamos sempre disponíveis para ouvir e melhorar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-cards">
+        <div class="acard tall fade-up">
+          <div>
+            <span class="icon"></span>
+            <h4>Aplicativo principal</h4>
+            <p>Saúde Plus é nosso carro-chefe — um app completo de gestão de saúde pessoal disponível no Android.</p>
+          </div>
+          <div>
+            <div class="big-stat">1<span>+</span></div>
+            <p style="font-size:0.78rem;color:var(--gray-text);">App em processo de publicação</p>
+          </div>
+        </div>
+        <div class="acard fade-up">
+          <span class="icon"></span>
+          <h4>100% Brasileiro</h4>
+          <p>Desenvolvido no Brasil, pensado para brasileiros.</p>
+        </div>
+        <div class="acard fade-up">
+          <span class="icon"></span>
+          <h4>Privacidade primeiro</h4>
+          <p>Seus dados nunca são vendidos ou compartilhados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="aplicativos">
+  <div class="section-inner">
+    <div class="apps-header">
+      <div class="section-tag">Nossos Aplicativos</div>
+      <h2 class="section-title">Soluções desenvolvidas pela A&MDev Studio</h2>
+      <p class="section-sub">Aplicativos pensados para facilitar o cuidado diário com a saúde de pacientes e suas famílias.</p>
+    </div>
+
+    <div class="app-featured fade-up">
+      <div class="featured-badge">Em processo de publicação</div>
+      <div class="app-icon-box">
+        <img src="icone-saudeplus.png" alt="Saúde Plus"
+          onerror="this.parentElement.style.background='var(--blue-light)';this.parentElement.style.display='flex';this.parentElement.style.alignItems='center';this.parentElement.style.justifyContent='center';this.parentElement.style.fontSize='2rem';this.parentElement.innerHTML='💊';" />
+      </div>
+      <div>
+        <div class="app-category">Saúde &amp; Bem-estar</div>
+        <h3>Saúde Plus</h3>
+        <p>App completo de gestão de saúde pessoal com controle de medicamentos, alertas inteligentes, monitoramento de pressão arterial, glicemia, hidratação, atividades físicas e painel dedicado para cuidadores.</p>
+        <div class="app-tags">
+          <span class="tag">Medicamentos</span>
+          <span class="tag">Pressão Arterial</span>
+          <span class="tag">Glicemia</span>
+          <span class="tag g">Hidratação</span>
+          <span class="tag g">Atividades</span>
+          <span class="tag">Cuidadores</span>
+        </div>
+        <div class="app-status"><div class="dot"></div>Em breve na Google Play</div>
+      </div>
+    </div>
+
+    <div class="apps-secondary">
+      <div class="app-card-sm fade-up">
+        <div class="app-icon-sm">🏋️</div>
+        <div class="app-category">Fitness &amp; Nutrição</div>
+        <h3>FitTrack</h3>
+        <p>Acompanhamento de treinos e nutrição personalizada. Em desenvolvimento pela A&MDev Studio.</p>
+        <div class="app-status soon"><div class="dot"></div>Em desenvolvimento</div>
+      </div>
+      <div class="app-card-sm fade-up">
+        <div class="app-icon-sm"></div>
+        <div class="app-category">Saúde Mental</div>
+        <h3>MindCare</h3>
+        <p>Ferramenta de apoio à saúde mental com meditações guiadas e diário emocional. Em planejamento.</p>
+        <div class="app-status soon"><div class="dot"></div>Em planejamento</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-bg">
+  <div class="section-inner">
+    <div class="values-header">
+      <div class="section-tag">Nossos valores</div>
+      <h2 class="section-title">O que nos guia</h2>
+      <p class="section-sub">Princípios que orientam cada decisão de desenvolvimento e produto na A&MDev Studio.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-up"><span class="vi"></span><h4>Foco no usuário</h4><p>Cada funcionalidade resolve um problema real. Sem complexidade desnecessária.</p></div>
+      <div class="value-card fade-up"><span class="vi"></span><h4>Privacidade</h4><p>Os dados dos nossos usuários pertencem a eles. Nunca vendemos ou monetizamos informações pessoais.</p></div>
+      <div class="value-card fade-up"><span class="vi"></span><h4>Acessibilidade</h4><p>Apps gratuitos, leves e funcionais. Desenvolvidos para qualquer dispositivo Android.</p></div>
+      <div class="value-card fade-up"><span class="vi"></span><h4>Transparência</h4><p>Políticas claras, sem letras miúdas. Você sabe exatamente o que nossos apps fazem.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacidade">
+  <div class="section-inner">
+    <div class="privacy-grid">
+      <div>
+        <div class="section-tag">Política de Privacidade</div>
+        <h2 class="section-title">Seus dados, sua privacidade</h2>
+        <p class="section-sub">A A&MDev Studio leva a privacidade muito a sério. Veja como tratamos as informações dos nossos usuários.</p>
+        <div class="privacy-list">
+          <div class="privacy-item fade-up"><span class="pi"></span><div><h5>Armazenamento local</h5><p>Os dados de saúde são armazenados no próprio dispositivo ou em serviços seguros com autenticação. Não acessamos informações pessoais de saúde.</p></div></div>
+          <div class="privacy-item fade-up"><span class="pi"></span><div><h5>Sem venda de dados</h5><p>Jamais vendemos, alugamos ou compartilhamos dados pessoais dos usuários com terceiros para fins comerciais.</p></div></div>
+          <div class="privacy-item fade-up"><span class="pi"></span><div><h5>Coleta mínima</h5><p>Coletamos apenas o essencial: e-mail para autenticação e dados inseridos pelo próprio usuário no app.</p></div></div>
+          <div class="privacy-item fade-up"><span class="pi"></span><div><h5>Direito de exclusão</h5><p>O usuário pode solicitar exclusão completa de todos os seus dados a qualquer momento pelo e-mail de contato.</p></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag" style="background:var(--green-light);color:#15803D;">Contato para privacidade</div>
+        <h3 style="font-family:var(--font-head);font-weight:700;font-size:1.3rem;color:var(--dark);margin:0.5rem 0 0.75rem;">Dúvidas ou solicitações?</h3>
+        <p style="color:var(--gray-text);font-size:0.9rem;line-height:1.75;margin-bottom:1.5rem;">Para exercer seus direitos de privacidade, solicitar exclusão de dados ou tirar dúvidas sobre como tratamos suas informações, entre em contato:</p>
+        <div class="contact-card">
+          <div class="contact-item"><div class="contact-icon">📧</div><div><div class="c-label">E-mail de privacidade</div><div class="c-value"><a href="mailto:app.saudeplus@gmail.com">app.saudeplus@gmail.com</a></div></div></div>
+          <div class="c-divider"></div>
+          <div class="contact-item"><div class="contact-icon">⏱️</div><div><div class="c-label">Tempo de resposta</div><div class="c-value">Até 5 dias úteis</div></div></div>
+          <div class="c-divider"></div>
+          <div class="contact-item"><div class="contact-icon">🌍</div><div><div class="c-label">Jurisdição</div><div class="c-value">Brasil · LGPD</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-bg" id="contato">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="section-tag">Contato</div>
+        <h2 class="section-title">Fale com a<br/>A&MDev Studio</h2>
+        <p class="section-sub">Para dúvidas sobre nossos aplicativos, parcerias, suporte técnico ou qualquer outro assunto, entre em contato.</p>
+        <div class="contact-card" style="margin-top:2rem;">
+          <div class="contact-item"><div class="contact-icon">📧</div><div><div class="c-label">E-mail geral</div><div class="c-value"><a href="mailto:app.saudeplus@gmail.com">app.saudeplus@gmail.com</a></div></div></div>
+          <div class="c-divider"></div>
+          <div class="contact-item"><div class="contact-icon">🏢</div><div><div class="c-label">Organização</div><div class="c-value">A&MDev Studio</div></div></div>
+          <div class="c-divider"></div>
+          <div class="contact-item"><div class="contact-icon">🇧🇷</div><div><div class="c-label">País</div><div class="c-value">Brasil</div></div></div>
+          <div class="c-divider"></div>
+          <div class="contact-item"><div class="contact-icon">📱</div><div><div class="c-label">Plataforma</div><div class="c-value">Google Play Store</div></div></div>
+        </div>
+      </div>
+      <div style="padding-top:3.5rem;">
+        <div style="background:linear-gradient(135deg,var(--blue) 0%,var(--blue-dark) 100%);border-radius:var(--radius);padding:2.5rem;color:white;text-align:center;">
+          <div style="font-size:3rem;margin-bottom:1rem;">📲</div>
+          <h3 style="font-family:var(--font-head);font-weight:800;font-size:1.4rem;margin-bottom:0.75rem;">Saúde Plus</h3>
+          <p style="font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:1.5rem;">Nosso aplicativo está em processo de publicação. Em breve estará disponível para Android..</p>
+          <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:white;color:var(--blue);padding:12px 24px;border-radius:50px;font-family:var(--font-head);font-weight:700;font-size:0.9rem;text-decoration:none;box-shadow:0 4px 16px rgba(0,0,0,0.15);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+          Em breve na Google Play
+          </a>
+          <div style="margin-top:1rem;font-size:0.75rem;color:rgba(255,255,255,0.45);">Gratuito · Sem anúncios</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-lm">A&M<span>D</span></div>
+          <span class="footer-brand-name">A&MDev Studio</span>
+        </div>
+        <p>Organização brasileira dedicada ao desenvolvimento de aplicativos móveis para saúde e bem-estar. Criando soluções simples para problemas reais.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#aplicativos">Aplicativos</a></li>
+          <li><a href="#privacidade">Privacidade</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Aplicativos</h4>
+        <ul>
+          <li><a href="#aplicativos">Saúde Plus</a></li>
+          <li><a href="#aplicativos">FitTrack (em breve)</a></li>
+          <li><a href="#aplicativos">MindCare (em breve)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 A&MDev Studio. Todos os direitos reservados.</span>
+      <span><a href="mailto:app.saudeplus@gmail.com">app.saudeplus@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const t = document.querySelector(this.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
